@@ -24,7 +24,7 @@ services:
     ports:
       - "8000:8000"
     env_file:
-      - .env
+      - .env.testing
     depends_on:
       chromadb:
         condition: service_healthy
@@ -43,7 +43,7 @@ services:
     ports:
       - "8080:8080"
     env_file:
-      - .env
+      - .env.testing
     environment:
       # Prioridad sobre .env: en el host suele ser 127.0.0.1, pero dentro del contenedor hay que ir al anfitrión.
       OLLAMA_URL: http://host.docker.internal:11434

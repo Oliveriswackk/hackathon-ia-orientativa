@@ -27,7 +27,7 @@ class ChromaImpl(IChroma.IChroma):
 
 
     def add_Documents(self):
-        carpeta = Path('/app/documents')
+        carpeta = Path('../../../docs')
         for document in carpeta.iterdir():
             text = ""
             if document.suffix == '.pdf':
