@@ -13,4 +13,3 @@ Proyecto hackathon IA orientativa electoral
 Jaime → mete código en python-api
 Emmanuel → mete rag / groq
 tú → metes laravel
-todos → usan rules + docs
