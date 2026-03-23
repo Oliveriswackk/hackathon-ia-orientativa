@@ -1,0 +1,32 @@
+#Python 3.12
+
+#FastAPI
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+pydantic==2.9.2
+pydantic-settings==2.5.2
+
+# LangChain
+langchain==0.3.0
+langchain-community==0.3.0
+langchain-chroma==0.1.4
+langchain-groq==0.2.0
+langchain-huggingface==0.1.0
+
+# Vector DB
+chromadb==0.5.11
+
+# Embeddings (local, multilingüe)
+sentence-transformers==3.1.1
+
+# Document loaders
+pymupdf==1.24.10
+
+# Utilidades
+python-multipart==0.0.12
+
+# .ENV
+python-dotenv==1.2.0
+
+# watchfiles
+watchfiles==0.21.0
