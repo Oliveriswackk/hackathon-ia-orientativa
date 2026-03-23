@@ -1,0 +1,56 @@
+# Base:   docker compose up -d
+#         → Chroma (puerto host 8001) + rag-api FastAPI (8000).
+# Con PHP: docker compose --profile with-php up -d
+#         → además Laravel en http://localhost:8080 (ver README).
+
+services:
+  chromadb:
+    image: chromadb/chroma:0.5.11
+    ports:
+      - "8001:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+    environment:
+      - IS_PERSISTENT=TRUE
+      - ANONYMIZED_TELEMETRY=FALSE
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8000/api/v1/heartbeat" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  rag-api:
+    build: ./services/rag-api
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      chromadb:
+        condition: service_healthy
+    environment:
+      - CHROMA_HOST=chromadb
+      - CHROMA_PORT=8000
+    volumes:
+      - ./services/rag-api:/app
+      - ./documents:/app/documents:ro
+
+  laravel-web:
+    profiles: ["with-php"]
+    build:
+      context: ./docker/laravel
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    environment:
+      # Prioridad sobre .env: en el host suele ser 127.0.0.1, pero dentro del contenedor hay que ir al anfitrión.
+      OLLAMA_URL: http://host.docker.internal:11434
+    volumes:
+      - .:/var/www/html
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  chroma_data:
