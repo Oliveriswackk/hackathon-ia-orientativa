@@ -1,8 +1,8 @@
 .env
-venv/
-node_modules/
 vendor/
+node_modules/
 __pycache__/
+venv/
 *.log
 *.db
 *.sqlite
@@ -26,3 +26,4 @@ __pycache__/
 Homestead.json
 Homestead.yaml
 Thumbs.db
+.DS_Store
