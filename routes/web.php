@@ -3,6 +3,11 @@
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
+Route::view('/onboarding/1', 'onboarding-1')->name('onboarding.1');
+Route::view('/onboarding/2', 'onboarding-2')->name('onboarding.2');
+Route::view('/onboarding/3', 'onboarding-3')->name('onboarding.3');
+Route::view('/procesando', 'procesando')->name('procesando');
+Route::view('/salida', 'salida')->name('salida');
 Route::view('/traductor', 'traductor')->name('traductor');
 Route::view('/orientacion', 'orientacion')->name('orientacion');
 Route::view('/urgencia', 'urgencia')->name('urgencia');

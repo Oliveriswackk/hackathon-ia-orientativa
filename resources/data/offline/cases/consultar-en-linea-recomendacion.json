@@ -1,0 +1,40 @@
+{
+  "id": "consultar-en-linea-recomendacion",
+  "title": "Cuando conviene conectarte (limitación offline)",
+  "keywords": [
+    "no se",
+    "no puedo",
+    "offline",
+    "internet",
+    "conectarme",
+    "limitacion",
+    "fecha",
+    "casilla",
+    "donde votar"
+  ],
+  "summary": "Mensaje de limitación: qué cosas no son confiables en offline y cuándo conectar.",
+  "output": {
+    "tipo_doc": "",
+    "autoridad_competente": "",
+    "ruta_sugerida": "",
+    "tramite": "",
+    "modalidad": "",
+    "plazo": "",
+    "consecuencias": "",
+    "links_oficiales": [
+      "https://www.ine.mx",
+      "https://www.te.gob.mx"
+    ],
+    "respuesta": "Modo offline (limitado): sin Internet solo puedo responder con el catálogo precargado. Para cosas que cambian (fechas, ubicaciones de casillas, módulos, estados de trámite, criterios actualizados), es mejor conectarte y consultar fuentes oficiales. Si tu pregunta depende de un dato que no está precargado, te diré que no está disponible offline."
+  },
+  "sources": [
+    { "label": "INE", "url": "https://www.ine.mx" },
+    { "label": "TEPJF", "url": "https://www.te.gob.mx" }
+  ],
+  "suggested_questions": [
+    "¿Qué sí puedes responder offline?",
+    "¿Cómo ubico la autoridad competente?",
+    "Tengo una cédula de notificación, ¿qué hago?"
+  ]
+}
+

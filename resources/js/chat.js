@@ -2,6 +2,8 @@
  * Comparador dual Groq / Ollama: historiales independientes, chips de seguimiento y estado de conexión.
  */
 
+import { OfflineSession, getOfflineCasesCount } from './offline-engine';
+
 const SYSTEM_PROMPT =
     'Eres un orientador electoral para México (público joven). Responde en español, con claridad. ' +
     'No inventes plazos ni datos normativos; si no estás seguro, dilo. Solo temas electorales y ciudadanía.';
@@ -183,21 +185,65 @@ export function initDualChat() {
     const statusGroq = document.getElementById('dual-status-groq');
     const statusOllama = document.getElementById('dual-status-ollama');
 
+    const offlineSession = new OfflineSession();
+
     initMobileTabs(root);
 
     async function refreshStatus() {
+        // Si no hay Internet, no consultamos backend: Groq no está, offline engine sí.
+        if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+            renderConnectionStatus(statusGroq, false, 'En línea', 'Sin conexión');
+            renderConnectionStatus(statusOllama, true, 'Disponible', 'No disponible');
+            return;
+        }
         const data = await fetchStatus(apiBase);
         if (!data) {
             renderConnectionStatus(statusGroq, false, 'En línea', 'Sin conexión');
-            renderConnectionStatus(statusOllama, false, 'En línea', 'Sin conexión');
+            renderConnectionStatus(statusOllama, true, 'Disponible', 'No disponible');
             return;
         }
         renderConnectionStatus(statusGroq, !!data.llama_available, 'En línea', 'Sin conexión');
-        renderConnectionStatus(statusOllama, !!data.ollama_available, 'En línea', 'Sin conexión');
+        // El motor offline (JSON) está embebido en el frontend: siempre disponible.
+        renderConnectionStatus(statusOllama, true, 'Disponible', 'No disponible');
     }
 
     refreshStatus();
     setInterval(refreshStatus, 25000);
+
+    function applyOfflineUx() {
+        const isOffline = typeof navigator !== 'undefined' && navigator.onLine === false;
+
+        // Si estamos offline: deshabilitar targets que requieran backend y renombrar “Ollama” a “Offline”.
+        const radios = form?.querySelectorAll('input[name="dual-send-target"]') || [];
+        radios.forEach((r) => {
+            if (!(r instanceof HTMLInputElement)) return;
+            if (r.value === 'groq' || r.value === 'both') {
+                r.disabled = isOffline;
+            }
+            if (r.value === 'ollama') {
+                r.disabled = false;
+                if (isOffline) r.checked = true;
+            }
+        });
+
+        const tabOllama = document.getElementById('dual-tab-ollama');
+        if (tabOllama) tabOllama.textContent = 'Offline (JSON)';
+        const colTitle = document.getElementById('dual-col-ollama-title');
+        if (colTitle) colTitle.textContent = 'Offline · Catálogo';
+        const colSub = root.querySelector('#dual-panel-ollama .dual-ia-col-sub');
+        if (colSub) colSub.textContent = `Asistente guiado (sin LLM) · ${getOfflineCasesCount()} casos`;
+    }
+
+    applyOfflineUx();
+    window.addEventListener('online', () => {
+        applyOfflineUx();
+        refreshStatus();
+    });
+    window.addEventListener('offline', () => {
+        offlineSession.reset();
+        applyOfflineUx();
+        refreshStatus();
+    });
 
     /**
      * @param {'groq'|'ollama'} provider
@@ -205,6 +251,22 @@ export function initDualChat() {
      */
     async function runColumn(provider, question) {
         const col = provider === 'groq' ? colGroq : colOllama;
+
+        // Offline real: usamos el motor local y no llamamos backend.
+        if (provider === 'ollama' && typeof navigator !== 'undefined' && navigator.onLine === false) {
+            const result = offlineSession.handleUserMessage(question);
+            if (result.type === 'answer') {
+                const wrap = appendMessage(col, 'assistant', result.text, result.chips, 'Modo offline (sin LLM)');
+                wireChips(wrap, input, form);
+            } else if (result.type === 'ask') {
+                const wrap = appendMessage(col, 'assistant', result.text, result.chips, 'Modo offline (sin LLM)');
+                wireChips(wrap, input, form);
+            } else {
+                appendMessage(col, 'error', result.text, []);
+            }
+            return;
+        }
+
         const { ok, json } = await postAsk(apiBase, question, provider);
         if (ok && json.success) {
             const ans = json.data?.answer ?? '';

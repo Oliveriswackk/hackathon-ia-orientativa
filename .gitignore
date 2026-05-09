@@ -31,3 +31,6 @@ Thumbs.db
 # PDFs y documentos para RAG (mantener la carpeta con .gitkeep)
 /documents/*
 !/documents/.gitkeep
+
+# Mantener una sola carpeta de documentos (canonical: documents/)
+/docs/*

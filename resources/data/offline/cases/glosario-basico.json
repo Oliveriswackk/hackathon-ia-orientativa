@@ -1,0 +1,39 @@
+{
+  "id": "glosario-basico",
+  "title": "Glosario básico electoral (offline)",
+  "keywords": [
+    "glosario",
+    "terminos",
+    "que significa",
+    "plazo",
+    "notificacion",
+    "acto",
+    "impugnacion",
+    "autoridad"
+  ],
+  "summary": "Definiciones cortas y prudentes de términos comunes. No sustituye asesoría legal.",
+  "output": {
+    "tipo_doc": "",
+    "autoridad_competente": "",
+    "ruta_sugerida": "",
+    "tramite": "",
+    "modalidad": "",
+    "plazo": "",
+    "consecuencias": "",
+    "links_oficiales": [
+      "https://www.ine.mx",
+      "https://www.te.gob.mx"
+    ],
+    "respuesta": "Glosario básico (offline):\n\n- Plazo: tiempo límite para realizar un acto (presentar un escrito, impugnar, etc.).\n- Notificación: acto por el cual una autoridad te comunica formalmente una determinación.\n- Autoridad competente: la institución que legalmente puede atender/resolver tu asunto.\n- Medio de impugnación: vía legal para controvertir un acto o resolución ante la autoridad/jurisdicción correspondiente.\n\nSi tu pregunta requiere fechas, requisitos exactos o casos particulares, en modo offline es mejor conectarte a Internet o acudir a la autoridad competente."
+  },
+  "sources": [
+    { "label": "INE", "url": "https://www.ine.mx" },
+    { "label": "TEPJF", "url": "https://www.te.gob.mx" }
+  ],
+  "suggested_questions": [
+    "¿Qué es un medio de impugnación?",
+    "¿Qué significa notificación?",
+    "¿Qué hago si ya venció un plazo?"
+  ]
+}
+

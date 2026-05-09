@@ -5,10 +5,14 @@ namespace App\Services\AI;
 use App\Contracts\AIProviderInterface;
 use App\Services\GroqService;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class LlamaProvider implements AIProviderInterface
 {
-    protected string $model = 'llama-3.3-70b-versatile';
+    protected function groqModel(): string
+    {
+        return (string) config('services.groq.model', 'llama-3.3-70b-versatile');
+    }
 
     public function ask(string $prompt, string $systemPrompt = ''): string
     {
@@ -84,7 +88,7 @@ class LlamaProvider implements AIProviderInterface
     public function isAvailable(): bool
     {
         $apiKey = config('services.groq.key');
-        if (empty($apiKey)) {
+        if ($apiKey === '') {
             return false;
         }
 
@@ -93,23 +97,93 @@ class LlamaProvider implements AIProviderInterface
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $apiKey,
             ])
-                ->timeout(5)
+                ->timeout(12)
                 ->post('https://api.groq.com/openai/v1/chat/completions', [
-                    'model' => $this->model,
+                    'model' => $this->groqModel(),
                     'messages' => [
                         ['role' => 'user', 'content' => 'ping'],
                     ],
                     'max_tokens' => 1,
                 ]);
 
+            $json = $response->json();
+
             if (!$response->successful()) {
+                Log::warning('Groq availability check failed', [
+                    'http_status' => $response->status(),
+                    'groq_error' => $json['error']['message'] ?? ($response->body() !== '' ? substr($response->body(), 0, 500) : null),
+                    'model' => $this->groqModel(),
+                ]);
+
                 return false;
             }
 
-            $json = $response->json();
             return isset($json['choices'][0]['message']['content']);
         } catch (\Throwable $e) {
+            Log::warning('Groq availability check exception', [
+                'message' => $e->getMessage(),
+                'model' => $this->groqModel(),
+            ]);
+
             return false;
+        }
+    }
+
+    /**
+     * Prueba directa a Groq (no cacheada). Útil para depurar cuando isAvailable() falla.
+     *
+     * @return array{ok: bool, http_status: int|null, model: string, groq_error: string|null, exception: string|null}
+     */
+    public function diagnoseGroq(): array
+    {
+        $apiKey = config('services.groq.key');
+        $model = $this->groqModel();
+
+        if ($apiKey === '') {
+            return [
+                'ok' => false,
+                'http_status' => null,
+                'model' => $model,
+                'groq_error' => 'GROQ_API_KEY vacía o solo espacios (revisa .env y ejecuta php artisan config:clear)',
+                'exception' => null,
+            ];
+        }
+
+        try {
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $apiKey,
+            ])
+                ->timeout(15)
+                ->post('https://api.groq.com/openai/v1/chat/completions', [
+                    'model' => $model,
+                    'messages' => [
+                        ['role' => 'user', 'content' => 'ping'],
+                    ],
+                    'max_tokens' => 1,
+                ]);
+
+            $json = $response->json();
+            $groqError = is_array($json) && isset($json['error']['message'])
+                ? (string) $json['error']['message']
+                : null;
+
+            $ok = $response->successful() && isset($json['choices'][0]['message']['content']);
+
+            return [
+                'ok' => $ok,
+                'http_status' => $response->status(),
+                'model' => $model,
+                'groq_error' => $groqError,
+                'exception' => null,
+            ];
+        } catch (\Throwable $e) {
+            return [
+                'ok' => false,
+                'http_status' => null,
+                'model' => $model,
+                'groq_error' => null,
+                'exception' => $e->getMessage(),
+            ];
         }
     }
 }

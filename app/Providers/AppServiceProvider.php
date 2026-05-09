@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\ServiceProvider;
 use App\Services\AI\AIManager;
 use App\Services\AI\LlamaProvider;
@@ -27,6 +28,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Windows / PHP curl sin cadena CA del sistema falla HTTPS (cURL 60).
+        // Usamos el bundle Mozilla si está presente (certificates/cacert.pem).
+        $caBundle = base_path('certificates/cacert.pem');
+        if (is_readable($caBundle)) {
+            Http::globalOptions([
+                'verify' => $caBundle,
+            ]);
+        }
     }
 }

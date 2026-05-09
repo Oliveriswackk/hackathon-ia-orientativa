@@ -1,0 +1,49 @@
+{
+  "id": "ubicar-autoridad",
+  "title": "Cómo ubicar la autoridad competente (guía offline)",
+  "keywords": [
+    "autoridad",
+    "competente",
+    "donde",
+    "tribunal",
+    "ine",
+    "instituto electoral",
+    "a quien acudir"
+  ],
+  "summary": "Guía general para decidir a qué institución acercarte. En offline no valida tu caso específico.",
+  "questions": [
+    {
+      "id": "tema",
+      "prompt": "¿Tu tema se parece más a…?",
+      "options": [
+        { "id": "credencial", "label": "Trámites de credencial/INE (inscripción, reposición, cambio de domicilio)", "keywords": ["ine", "credencial", "domicilio", "reposicion"] },
+        { "id": "queja", "label": "Quejas/denuncias electorales (propaganda, violencia política, etc.)", "keywords": ["denuncia", "queja", "propaganda", "violencia"] },
+        { "id": "impugnacion", "label": "Impugnación de un acto o resolución (plazos, escritos, tribunal)", "keywords": ["impugnacion", "tribunal", "resolucion"] }
+      ]
+    }
+  ],
+  "output": {
+    "tipo_doc": "",
+    "autoridad_competente": "Depende del tema (INE / OPLE / tribunal electoral / fiscalía / autoridad administrativa).",
+    "ruta_sugerida": "Identificar el tema y contactar a la autoridad correspondiente.",
+    "tramite": "Orientación general; en modo offline no se verifica el detalle del caso.",
+    "modalidad": "Presencial o en línea, según la autoridad.",
+    "plazo": "Variable según el procedimiento; si hay plazos, confírmalo con la autoridad.",
+    "consecuencias": "Perder un plazo puede limitar opciones legales; busca orientación pronto.",
+    "links_oficiales": [
+      "https://www.ine.mx",
+      "https://www.te.gob.mx"
+    ],
+    "respuesta": "Guía offline: si tu asunto es sobre credencial para votar o padrón, normalmente inicia en INE. Si es una impugnación de acto/resolución, revisa la vía de medio de impugnación ante la autoridad/tribunal que corresponda. Si es una queja/denuncia, busca el canal oficial del INE/OPLE/autoridad competente. En modo offline no puedo confirmar la autoridad exacta; conecta a Internet para ubicar oficinas y vías formales."
+  },
+  "sources": [
+    { "label": "INE", "url": "https://www.ine.mx" },
+    { "label": "TEPJF", "url": "https://www.te.gob.mx" }
+  ],
+  "suggested_questions": [
+    "¿Qué datos debo llevar para un trámite?",
+    "¿Cómo identifico si es impugnación o queja?",
+    "¿Qué hago si ya tengo una notificación?"
+  ]
+}
+

@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OfflineCaseCatalog",
+  "type": "object",
+  "properties": {
+    "version": { "type": "string" },
+    "cases": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/OfflineCase" }
+    }
+  },
+  "required": ["version", "cases"],
+  "$defs": {
+    "OfflineCase": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "keywords": { "type": "array", "items": { "type": "string" } },
+        "summary": { "type": "string" },
+        "questions": { "type": "array", "items": { "$ref": "#/$defs/OfflineQuestion" } },
+        "output": { "$ref": "#/$defs/OutputFormat" },
+        "sources": { "type": "array", "items": { "$ref": "#/$defs/Source" } },
+        "suggested_questions": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["id", "title", "keywords", "summary", "output", "sources"]
+    },
+    "OfflineQuestion": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "prompt": { "type": "string" },
+        "options": { "type": "array", "items": { "$ref": "#/$defs/OfflineOption" } }
+      },
+      "required": ["id", "prompt", "options"]
+    },
+    "OfflineOption": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "label": { "type": "string" },
+        "keywords": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["id", "label"]
+    },
+    "OutputFormat": {
+      "type": "object",
+      "properties": {
+        "tipo_doc": { "type": "string" },
+        "autoridad_competente": { "type": "string" },
+        "ruta_sugerida": { "type": "string" },
+        "tramite": { "type": "string" },
+        "modalidad": { "type": "string" },
+        "plazo": { "type": "string" },
+        "consecuencias": { "type": "string" },
+        "links_oficiales": { "type": "array", "items": { "type": "string" } },
+        "respuesta": { "type": "string" }
+      },
+      "required": [
+        "tipo_doc",
+        "autoridad_competente",
+        "ruta_sugerida",
+        "tramite",
+        "modalidad",
+        "plazo",
+        "consecuencias",
+        "links_oficiales",
+        "respuesta"
+      ]
+    },
+    "Source": {
+      "type": "object",
+      "properties": {
+        "label": { "type": "string" },
+        "url": { "type": "string" }
+      },
+      "required": ["label", "url"]
+    }
+  }
+}
+

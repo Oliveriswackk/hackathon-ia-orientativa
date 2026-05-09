@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title', 'Comparador IA · Groq y Ollama · ¿Y qué hago?')
+@section('title', 'Comparador IA · Groq y Offline · ¿Y qué hago?')
 
 @section('content')
     <div class="page-container dual-ia-page">
         <div id="dual-ia-root" class="dual-ia" data-api-base="{{ url('/api') }}">
             <header class="dual-ia-intro">
-                <h1 class="dual-ia-title">Comparador de modelos</h1>
+                <h1 class="dual-ia-title">Orientador (online/offline)</h1>
                 <p class="dual-ia-lead">
-                    Misma pregunta para <strong>Groq</strong> (en línea) y <strong>Phi‑3 en Ollama</strong> (local). Cada columna guarda su propio historial.
-                    Puedes enviar a ambos o solo a uno.
+                    Misma pregunta para <strong>Groq</strong> (en línea) y para el modo <strong>Offline</strong> (sin Internet, basado en JSON precargado).
+                    Puedes enviar a ambos o solo a uno. En offline la respuesta es limitada al catálogo precargado.
                 </p>
             </header>
 
@@ -34,9 +34,9 @@
                     aria-selected="false"
                     aria-controls="dual-panel-ollama"
                     data-tab-target="ollama"
-                    aria-label="Mostrar columna Ollama local"
+                    aria-label="Mostrar columna Offline"
                 >
-                    Ollama (local)
+                    Offline (JSON)
                 </button>
             </div>
 
@@ -76,8 +76,8 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></svg>
                         </span>
                         <div class="dual-ia-col-titles">
-                            <h2 class="dual-ia-col-title" id="dual-col-ollama-title">Ollama · Phi‑3</h2>
-                            <p class="dual-ia-col-sub">Modelo local (localhost)</p>
+                            <h2 class="dual-ia-col-title" id="dual-col-ollama-title">Offline · Catálogo</h2>
+                            <p class="dual-ia-col-sub">Asistente guiado (sin LLM)</p>
                         </div>
                         <div class="dual-ia-status" id="dual-status-ollama" data-connected="false">
                             <span class="dual-ia-status-dot" aria-hidden="true"></span>
@@ -114,7 +114,7 @@
                         </label>
                         <label class="dual-ia-radio-label">
                             <input type="radio" name="dual-send-target" value="ollama">
-                            Solo Ollama
+                            Solo Offline
                         </label>
                     </fieldset>
                     <button type="submit" class="btn btn-primary dual-ia-send" id="dual-ia-submit" aria-label="Enviar pregunta a los modelos seleccionados">

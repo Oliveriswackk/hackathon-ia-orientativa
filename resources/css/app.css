@@ -279,6 +279,472 @@ a {
     backdrop-filter: blur(12px);
 }
 
+/* ==========================================================================
+   Mobile app-like UI (inspirado en mocks)
+   ========================================================================== */
+
+.mobile-shell {
+    max-width: 430px;
+    margin: 0 auto;
+    padding: 20px 18px 30px;
+}
+
+.mobile-bg {
+    position: relative;
+    overflow: hidden;
+}
+
+.mobile-bg::before,
+.mobile-bg::after {
+    content: '';
+    position: absolute;
+    right: -220px;
+    top: 140px;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at 40% 40%,
+        color-mix(in srgb, var(--color-primary) 18%, transparent) 0%,
+        transparent 65%
+    );
+    pointer-events: none;
+}
+
+.mobile-bg::after {
+    right: -260px;
+    top: 190px;
+    width: 640px;
+    height: 640px;
+    background: radial-gradient(
+        circle at 40% 40%,
+        color-mix(in srgb, var(--color-accent) 16%, transparent) 0%,
+        transparent 70%
+    );
+}
+
+.mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.mobile-brand {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+}
+
+.mobile-brand b {
+    color: var(--color-primary);
+}
+
+.mobile-header-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mobile-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--color-border-subtle);
+    background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+    box-shadow: 0 2px 8px var(--color-shadow-soft);
+    font-size: 13px;
+    color: var(--color-text);
+}
+
+.mobile-icon-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
+    border: 1px solid var(--color-border-subtle);
+    background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+    box-shadow: 0 2px 8px var(--color-shadow-soft);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-hero h1 {
+    font-size: 34px;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    margin: 0 0 10px;
+}
+
+.mobile-hero p {
+    margin: 0 0 18px;
+    color: var(--color-text-muted);
+    max-width: 42ch;
+}
+
+.action-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 16px 16px;
+    border-radius: 18px;
+    border: 1px solid var(--color-border-subtle);
+    background: color-mix(in srgb, var(--color-surface) 94%, transparent);
+    box-shadow: 0 2px 10px var(--color-shadow-soft);
+    color: inherit;
+}
+
+.action-card + .action-card {
+    margin-top: 14px;
+}
+
+.action-card-primary {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    border-color: color-mix(in srgb, var(--color-primary) 45%, var(--color-border-subtle) 55%);
+}
+
+.action-card-danger {
+    border-color: color-mix(in srgb, var(--color-secondary) 55%, var(--color-border-subtle) 45%);
+}
+
+.action-card-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.action-card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-border-subtle);
+    background: color-mix(in srgb, var(--color-surface) 95%, transparent);
+    flex: 0 0 auto;
+}
+
+.action-card-primary .action-card-icon {
+    border-color: color-mix(in srgb, var(--color-on-primary) 30%, transparent);
+    background: color-mix(in srgb, var(--color-on-primary) 18%, transparent);
+}
+
+.action-card-title {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.action-card-subtitle {
+    font-size: 13px;
+    margin-top: 2px;
+    color: color-mix(in srgb, currentColor 70%, transparent);
+}
+
+.action-card-chevron {
+    opacity: 0.7;
+    flex: 0 0 auto;
+}
+
+.mobile-footer-bar {
+    margin-top: 18px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 12px;
+    color: var(--color-text-muted);
+}
+
+.mobile-footer-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 14px;
+    border: 1px solid var(--color-border-subtle);
+    background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+    box-shadow: 0 2px 8px var(--color-shadow-soft);
+}
+
+@media (min-width: 900px) {
+    .mobile-shell {
+        max-width: 520px;
+    }
+}
+
+/* Mockup pages: render provided PNGs full-screen */
+.mockup-page {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 18px;
+}
+
+.mockup-img {
+    width: min(430px, 100%);
+    height: auto;
+    border-radius: 28px;
+    box-shadow: 0 16px 40px var(--color-shadow-medium);
+    border: 1px solid var(--color-border-subtle);
+    background: var(--color-surface);
+}
+
+/* ==========================================================================
+   OrientaVox mobile UI (coded, inspired by mocks)
+   ========================================================================== */
+.ov-screen {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 18px;
+}
+
+.ov-bg {
+    background: var(--color-bg);
+    position: relative;
+    overflow: hidden;
+}
+
+.ov-bg::before,
+.ov-bg::after {
+    content: '';
+    position: absolute;
+    right: -260px;
+    top: -60px;
+    width: 560px;
+    height: 560px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, color-mix(in srgb, var(--color-primary) 14%, transparent), transparent 70%);
+    pointer-events: none;
+}
+
+.ov-bg::after {
+    right: -300px;
+    top: 40px;
+    width: 720px;
+    height: 720px;
+    background: radial-gradient(circle at 35% 35%, color-mix(in srgb, var(--color-accent) 12%, transparent), transparent 72%);
+}
+
+.ov-shell {
+    width: min(430px, 100%);
+    position: relative;
+    z-index: 1;
+}
+
+.ov-center {
+    text-align: center;
+}
+
+.ov-back {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
+    border: 1px solid var(--color-border-subtle);
+    background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px var(--color-shadow-soft);
+    color: var(--color-text);
+}
+
+.ov-hero-icon {
+    width: 120px;
+    height: 120px;
+    margin: 10px auto 18px;
+    border-radius: 999px;
+    background: radial-gradient(circle at 35% 35%, color-mix(in srgb, var(--color-primary) 18%, transparent), transparent 65%);
+    display: grid;
+    place-items: center;
+}
+
+.ov-lupin {
+    width: 64px;
+    height: 64px;
+    border-radius: 999px;
+    background: var(--color-primary);
+    box-shadow: 0 10px 24px var(--color-shadow-medium);
+    position: relative;
+}
+
+.ov-lupin::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--color-on-primary) 80%, transparent);
+    left: 16px;
+    top: 16px;
+}
+
+.ov-h1 {
+    margin: 0 0 6px;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.ov-h2 {
+    margin: 12px 0 10px;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.ov-p {
+    margin: 0 0 18px;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+}
+
+.ov-checklist {
+    margin: 18px 0 22px;
+    display: grid;
+    gap: 10px;
+}
+
+.ov-check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 14px;
+    border: 1px solid var(--color-border-subtle);
+    background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+}
+
+.ov-check-dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    background: color-mix(in srgb, var(--color-primary) 18%, var(--color-surface) 82%);
+    color: var(--color-primary);
+    font-weight: 800;
+}
+
+.ov-btn {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 16px;
+    border-radius: 18px;
+    font-weight: 700;
+    border: 1px solid transparent;
+}
+
+.ov-btn-primary {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    box-shadow: 0 10px 24px var(--color-shadow-soft);
+}
+
+.ov-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.ov-dots {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 14px;
+}
+
+.ov-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--color-text) 18%, transparent);
+}
+
+.ov-dot--active {
+    width: 18px;
+    background: var(--color-primary);
+}
+
+.ov-shield {
+    font-size: 34px;
+    text-align: center;
+    margin-top: 6px;
+}
+
+.ov-steps {
+    margin: 14px 0 14px;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 12px;
+}
+
+.ov-steps li {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 10px;
+    align-items: start;
+    padding: 12px 12px;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 16px;
+    background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+    color: var(--color-text);
+    line-height: 1.5;
+}
+
+.ov-step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    background: color-mix(in srgb, var(--color-primary) 16%, var(--color-surface) 84%);
+    color: var(--color-primary);
+    font-weight: 800;
+}
+
+.ov-disclaimer {
+    border: 1px solid color-mix(in srgb, var(--color-accent) 55%, var(--color-border-subtle) 45%);
+    background: color-mix(in srgb, var(--color-accent) 10%, var(--color-surface) 90%);
+    border-radius: 14px;
+    padding: 12px;
+    font-size: 13px;
+    color: var(--color-text);
+    margin: 10px 0 14px;
+    text-align: center;
+}
+
+.ov-consent {
+    display: grid;
+    gap: 10px;
+    margin: 10px 0 14px;
+}
+
+.ov-checkbox {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 13px;
+    color: var(--color-text-muted);
+}
+
+.ov-checkbox input {
+    margin-top: 2px;
+}
+
 .mini-card {
     background: var(--color-surface-elevated);
     border-radius: 14px;

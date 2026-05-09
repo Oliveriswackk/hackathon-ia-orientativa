@@ -32,7 +32,7 @@ class GroqService
         ])
         ->timeout(30)
         ->post('https://api.groq.com/openai/v1/chat/completions', [
-            'model' => 'llama-3.3-70b-versatile',
+            'model' => config('services.groq.model'),
             'messages' => $messages,
             'max_tokens' => 500,
         ]);
@@ -111,7 +111,7 @@ class GroqService
             ])
             ->timeout(5) // Timeout de 5 segundos para urgencia
             ->post('https://api.groq.com/openai/v1/chat/completions', [
-                'model' => 'llama-3.3-70b-versatile',
+                'model' => config('services.groq.model'),
                 'messages' => [
                     ['role' => 'system', 'content' => $systemPrompt],
                     ['role' => 'user', 'content' => $situacion]
