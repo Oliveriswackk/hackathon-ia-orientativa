@@ -113,8 +113,5 @@ Detalle comentado en **`.env.example`**.
 
 `php artisan test` usa `APP_ENV=testing` y el archivo **`.env.testing`** (versionado), así que no hace falta un `.env` local para la suite.
 
-## Roles
 
-Jaime → código en servicios Python (bajo `services/`)  
-Emmanuel → RAG / Groq  
-Tú → Laravel
+
