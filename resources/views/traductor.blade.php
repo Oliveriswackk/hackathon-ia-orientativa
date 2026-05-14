@@ -192,9 +192,10 @@
 @endpush
 
 @section('content')
-    <div class="page-container">
+    <div class="page-container translator-ov-page">
         <section class="translator-layout fade-up">
             <div class="translator-col">
+                <span class="ov-flow-eyebrow" style="margin-top: 0;">Traductor</span>
                 <h1 class="translator-title">Analiza tu documento</h1>
                 <p class="translator-subtitle">
                     Pega aquí tu acuerdo, resolución o notificación electoral. Te mostraremos los plazos aproximados, consecuencias

@@ -3,10 +3,12 @@
 @section('title', 'Comparador IA · Groq y Offline · ¿Y qué hago?')
 
 @section('content')
-    <div class="page-container dual-ia-page">
-        <div id="dual-ia-root" class="dual-ia" data-api-base="{{ url('/api') }}">
+    <div class="dual-ia-ov-page">
+        <div class="page-container dual-ia-page">
+        <div id="dual-ia-root" class="dual-ia" data-api-base="{{ url('/api') }}" data-offline-first-groq="false">
             <header class="dual-ia-intro">
-                <h1 class="dual-ia-title">Orientador (online/offline)</h1>
+                <span class="ov-flow-eyebrow" style="margin-top: 0;">Herramientas</span>
+                <h1 class="dual-ia-title">Comparador de modelos</h1>
                 <p class="dual-ia-lead">
                     Misma pregunta para <strong>Groq</strong> (en línea) y para el modo <strong>Offline</strong> (sin Internet, basado en JSON precargado).
                     Puedes enviar a ambos o solo a uno. En offline la respuesta es limitada al catálogo precargado.
@@ -122,6 +124,7 @@
                     </button>
                 </div>
             </form>
+        </div>
         </div>
     </div>
 @endsection

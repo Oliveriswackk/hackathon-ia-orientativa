@@ -1,16 +1,17 @@
 /**
- * Estilos base: variables de paleta (valores por defecto KOI FISH hasta que JS/inline apliquen otra)
- * y reset. Colores de interfaz solo vía var(--color-*); mezclas con color-mix sin literales hex/rgb.
+ * Estilos base: variables de paleta (OrientaVox por defecto hasta que JS aplique otra desde el selector).
+ * Colores de interfaz solo vía var(--color-*); mezclas con color-mix sin literales hex/rgb en componentes.
  */
 
 :root {
-    --color-primary: #5d64ee;
-    --color-secondary: #9d5f5e;
-    --color-accent: #f79a75;
-    --color-bg: #fef1d8;
-    --color-text: #2d2d2d;
-    --color-surface: #fff9ef;
-    --color-on-primary: #fef1d8;
+    /* Valores iniciales: preset OrientaVox — fondo casi blanco (#E7EDFE), azules de marca */
+    --color-primary: #2f77e2;
+    --color-secondary: #1e56b8;
+    --color-accent: #429ff1;
+    --color-bg: #e7edfe;
+    --color-text: #0f172a;
+    --color-surface: #ffffff;
+    --color-on-primary: #ffffff;
 
     /* Tokens derivados (solo dependen de las variables anteriores) */
     --color-text-muted: color-mix(in srgb, var(--color-text) 68%, var(--color-bg) 32%);
@@ -507,30 +508,23 @@ a {
 }
 
 .ov-bg {
-    background: var(--color-bg);
+    /* Fondo casi blanco con elipses visibles dentro del viewport (referencia Fondo) */
+    background-color: var(--color-bg);
+    background-image:
+        radial-gradient(ellipse 110% 65% at 50% 102%, color-mix(in srgb, var(--color-primary) 14%, transparent) 0%, transparent 58%),
+        radial-gradient(ellipse 75% 55% at 8% 12%, color-mix(in srgb, var(--color-accent) 12%, transparent) 0%, transparent 52%),
+        radial-gradient(ellipse 70% 50% at 92% 22%, color-mix(in srgb, var(--color-primary) 10%, transparent) 0%, transparent 50%);
+    background-repeat: no-repeat;
+    background-size:
+        130% 48%,
+        85% 38%,
+        80% 36%;
+    background-position:
+        center bottom,
+        left top,
+        right top;
     position: relative;
     overflow: hidden;
-}
-
-.ov-bg::before,
-.ov-bg::after {
-    content: '';
-    position: absolute;
-    right: -260px;
-    top: -60px;
-    width: 560px;
-    height: 560px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, color-mix(in srgb, var(--color-primary) 14%, transparent), transparent 70%);
-    pointer-events: none;
-}
-
-.ov-bg::after {
-    right: -300px;
-    top: 40px;
-    width: 720px;
-    height: 720px;
-    background: radial-gradient(circle at 35% 35%, color-mix(in srgb, var(--color-accent) 12%, transparent), transparent 72%);
 }
 
 .ov-shell {
@@ -564,29 +558,32 @@ a {
     height: 120px;
     margin: 10px auto 18px;
     border-radius: 999px;
-    background: radial-gradient(circle at 35% 35%, color-mix(in srgb, var(--color-primary) 18%, transparent), transparent 65%);
+    background: radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--color-accent) 8%, transparent), transparent 68%);
     display: grid;
     place-items: center;
 }
 
+/* Mascota Lupin: <img class="ov-lupin-img" …> o div.ov-lupin con --ov-lupin-url en :root (layout) */
+.ov-lupin-img {
+    width: 88px;
+    height: 88px;
+    object-fit: contain;
+    display: block;
+}
+
+/* Compat: div con fondo si no hay <img> (URL resuelta por Blade en :root) */
 .ov-lupin {
-    width: 64px;
-    height: 64px;
-    border-radius: 999px;
-    background: var(--color-primary);
-    box-shadow: 0 10px 24px var(--color-shadow-medium);
+    width: 88px;
+    height: 88px;
+    border-radius: 0;
+    background: transparent center / contain no-repeat;
+    background-image: var(--ov-lupin-url, url('/images/lupin-mascot.png'));
+    box-shadow: none;
     position: relative;
 }
 
 .ov-lupin::after {
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--color-on-primary) 80%, transparent);
-    left: 16px;
-    top: 16px;
+    display: none;
 }
 
 .ov-h1 {
@@ -743,6 +740,222 @@ a {
 
 .ov-checkbox input {
     margin-top: 2px;
+}
+
+/* ——— OrientaVox: wizard pasos + tarjetas de elección (PDF Proyectos) ——— */
+.ov-flow-eyebrow {
+    display: block;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-secondary);
+    margin-top: 48px;
+    margin-bottom: 4px;
+}
+
+.ov-step-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    background: color-mix(in srgb, var(--color-surface) 88%, var(--color-text) 12%);
+    border: 1px solid var(--color-border-subtle);
+    margin-bottom: 12px;
+}
+
+.ov-choice-list {
+    display: grid;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+button.ov-choice-card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 16px 16px;
+    border-radius: 18px;
+    border: 1px solid var(--color-border-subtle);
+    background: color-mix(in srgb, var(--color-surface) 94%, transparent);
+    box-shadow: 0 2px 10px var(--color-shadow-soft);
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition:
+        border-color 0.15s ease-out,
+        box-shadow 0.15s ease-out,
+        transform 0.15s ease-out;
+    min-height: 48px;
+}
+
+button.ov-choice-card:hover {
+    border-color: var(--color-border-strong);
+    transform: translateY(-1px);
+}
+
+button.ov-choice-card:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+button.ov-choice-card.is-selected {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-primary) 35%, transparent);
+}
+
+.ov-choice-card-title {
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+}
+
+.ov-choice-card-sub {
+    font-size: 13px;
+    color: var(--color-text-muted);
+    line-height: 1.45;
+}
+
+.ov-foot-link {
+    display: block;
+    margin-top: 14px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-primary);
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    font: inherit;
+}
+
+.ov-foot-link:hover {
+    opacity: 0.9;
+}
+
+.ov-card-shell {
+    margin-top: 10px;
+    border-radius: 22px;
+    border: 1px solid var(--color-border-subtle);
+    background: color-mix(in srgb, var(--color-surface) 94%, transparent);
+    box-shadow: 0 12px 30px var(--color-shadow-soft);
+    padding: 16px;
+}
+
+.ov-step-panel[hidden] {
+    display: none !important;
+}
+.ov-muted {
+    color: var(--color-text-muted);
+    font-size: 13px;
+}
+
+/* Salida / chips inferiores (referencia PDF) */
+.ov-chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.ov-chip {
+    flex: 1 1 calc(50% - 5px);
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 14px;
+    border-radius: 16px;
+    font-weight: 700;
+    font-size: 14px;
+    border: 1px solid var(--color-border-subtle);
+    background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+    color: var(--color-text);
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        border-color 0.15s ease-out,
+        background 0.15s ease-out;
+}
+
+.ov-chip:hover {
+    border-color: var(--color-border-strong);
+}
+
+.ov-chip--primary {
+    border-color: transparent;
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    box-shadow: 0 8px 20px var(--color-shadow-soft);
+}
+
+@media (max-width: 420px) {
+    .ov-chip {
+        flex: 1 1 100%;
+    }
+}
+
+/* Traductor: alinear móvil con shell del flujo principal */
+.translator-ov-page.page-container {
+    max-width: min(1120px, 100%);
+    padding-left: clamp(14px, 4vw, 24px);
+    padding-right: clamp(14px, 4vw, 24px);
+}
+
+@media (max-width: 900px) {
+    .translator-ov-page .translator-title {
+        font-size: clamp(20px, 6vw, 26px);
+    }
+
+    .translator-ov-page .type-pill {
+        min-height: 44px;
+        padding: 10px 14px;
+    }
+
+    .translator-ov-page #btnAnalizarDoc {
+        min-height: 48px;
+    }
+}
+
+.dual-ia-ov-page .page-container {
+    max-width: min(960px, 100%);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 767px) {
+    .dual-ia-ov-page .dual-ia-intro {
+        padding: 16px;
+        border-radius: 18px;
+        border: 1px solid var(--color-border-subtle);
+        background: color-mix(in srgb, var(--color-surface) 94%, transparent);
+        box-shadow: 0 2px 10px var(--color-shadow-soft);
+    }
+
+    .dual-ia-tab {
+        min-height: 48px;
+        padding-top: 14px;
+        padding-bottom: 14px;
+    }
+
+    .dual-ia-chip {
+        min-height: 44px;
+        padding: 10px 14px;
+    }
+
+    .dual-ia-send {
+        min-height: 48px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 }
 
 .mini-card {

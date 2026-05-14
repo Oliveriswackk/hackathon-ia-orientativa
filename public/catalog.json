@@ -1,0 +1,389 @@
+{
+  "version": "1.0.0",
+  "intents": [
+    {
+      "id": "intent.glossary",
+      "label": "Glosario",
+      "priority": 1,
+      "keywords": [
+        "glosario",
+        "terminos",
+        "que significa",
+        "definicion",
+        "definición"
+      ],
+      "aliases": [
+        "significado",
+        "diccionario"
+      ]
+    },
+    {
+      "id": "intent.authority",
+      "label": "Autoridad",
+      "priority": 2,
+      "keywords": [
+        "autoridad",
+        "donde presento",
+        "tribunal",
+        "sala",
+        "competente"
+      ],
+      "aliases": [
+        "donde voy",
+        "a donde"
+      ]
+    },
+    {
+      "id": "intent.deadline",
+      "label": "Plazos",
+      "priority": 3,
+      "keywords": [
+        "plazo",
+        "dias",
+        "días",
+        "vencio",
+        "venció",
+        "caducidad"
+      ],
+      "aliases": [
+        "tiempo limite",
+        "tiempo límite"
+      ]
+    },
+    {
+      "id": "intent.notification",
+      "label": "Notificación",
+      "priority": 4,
+      "keywords": [
+        "notificacion",
+        "notificación",
+        "cedula",
+        "cédula",
+        "buzon",
+        "buzón"
+      ],
+      "aliases": [
+        "me notificaron",
+        "recibi documento"
+      ]
+    },
+    {
+      "id": "intent.online_help",
+      "label": "Consulta en línea",
+      "priority": 0,
+      "keywords": [
+        "en linea",
+        "en línea",
+        "internet",
+        "portal",
+        "consultar en linea"
+      ],
+      "aliases": []
+    }
+  ],
+  "synonyms": [
+    {
+      "from": "tee",
+      "to": "tribunal electoral"
+    },
+    {
+      "from": "tepjf",
+      "to": "tribunal electoral"
+    },
+    {
+      "from": "ine",
+      "to": "instituto nacional electoral"
+    }
+  ],
+  "entries": [
+    {
+      "id": "consultar-en-linea-recomendacion",
+      "intentId": "intent.online_help",
+      "title": "Cuando conviene conectarte (limitación offline)",
+      "keywords": [
+        "no se",
+        "no puedo",
+        "offline",
+        "internet",
+        "conectarme",
+        "limitacion",
+        "fecha",
+        "casilla",
+        "donde votar"
+      ],
+      "summary": "Mensaje de limitación: qué cosas no son confiables en offline y cuándo conectar.",
+      "output": {
+        "tipo_doc": "",
+        "autoridad_competente": "",
+        "ruta_sugerida": "",
+        "tramite": "",
+        "modalidad": "",
+        "plazo": "",
+        "consecuencias": "",
+        "links_oficiales": [
+          "https://www.ine.mx",
+          "https://www.te.gob.mx"
+        ],
+        "respuesta": "Modo offline (limitado): sin Internet solo puedo responder con el catálogo precargado. Para cosas que cambian (fechas, ubicaciones de casillas, módulos, estados de trámite, criterios actualizados), es mejor conectarte y consultar fuentes oficiales. Si tu pregunta depende de un dato que no está precargado, te diré que no está disponible offline."
+      },
+      "sources": [
+        {
+          "label": "INE",
+          "url": "https://www.ine.mx"
+        },
+        {
+          "label": "TEPJF",
+          "url": "https://www.te.gob.mx"
+        }
+      ],
+      "suggested_questions": [
+        "¿Qué sí puedes responder offline?",
+        "¿Cómo ubico la autoridad competente?",
+        "Tengo una cédula de notificación, ¿qué hago?"
+      ]
+    },
+    {
+      "id": "glosario-basico",
+      "intentId": "intent.glossary",
+      "title": "Glosario básico electoral (offline)",
+      "keywords": [
+        "glosario",
+        "terminos",
+        "que significa",
+        "plazo",
+        "notificacion",
+        "acto",
+        "impugnacion",
+        "autoridad"
+      ],
+      "summary": "Definiciones cortas y prudentes de términos comunes. No sustituye asesoría legal.",
+      "output": {
+        "tipo_doc": "",
+        "autoridad_competente": "",
+        "ruta_sugerida": "",
+        "tramite": "",
+        "modalidad": "",
+        "plazo": "",
+        "consecuencias": "",
+        "links_oficiales": [
+          "https://www.ine.mx",
+          "https://www.te.gob.mx"
+        ],
+        "respuesta": "Glosario básico (offline):\n\n- Plazo: tiempo límite para realizar un acto (presentar un escrito, impugnar, etc.).\n- Notificación: acto por el cual una autoridad te comunica formalmente una determinación.\n- Autoridad competente: la institución que legalmente puede atender/resolver tu asunto.\n- Medio de impugnación: vía legal para controvertir un acto o resolución ante la autoridad/jurisdicción correspondiente.\n\nSi tu pregunta requiere fechas, requisitos exactos o casos particulares, en modo offline es mejor conectarte a Internet o acudir a la autoridad competente."
+      },
+      "sources": [
+        {
+          "label": "INE",
+          "url": "https://www.ine.mx"
+        },
+        {
+          "label": "TEPJF",
+          "url": "https://www.te.gob.mx"
+        }
+      ],
+      "suggested_questions": [
+        "¿Qué es un medio de impugnación?",
+        "¿Qué significa notificación?",
+        "¿Qué hago si ya venció un plazo?"
+      ]
+    },
+    {
+      "id": "impugnacion-cedula-notificacion",
+      "intentId": "intent.notification",
+      "doc_type": "cedula_notificacion",
+      "proceso": "medio_impugnacion",
+      "rule_pack_id": "cedula_notificacion_impugnacion",
+      "title": "Plazo para impugnar tras una cédula de notificación",
+      "keywords": [
+        "cedula",
+        "notificacion",
+        "impugnacion",
+        "plazo",
+        "medio de impugnacion",
+        "lgsmime",
+        "articulo 8",
+        "tribunal"
+      ],
+      "summary": "Orienta sobre el plazo típico (ejemplo) para promover un medio de impugnación después de una notificación.",
+      "questions": [
+        {
+          "id": "tipo_notificacion",
+          "prompt": "¿Qué recibiste exactamente?",
+          "options": [
+            {
+              "id": "cedula",
+              "label": "Una cédula de notificación / notificación formal",
+              "keywords": [
+                "cedula",
+                "notificacion"
+              ]
+            },
+            {
+              "id": "otro",
+              "label": "No estoy seguro / fue otro documento",
+              "keywords": [
+                "no se",
+                "otro",
+                "duda"
+              ]
+            }
+          ]
+        }
+      ],
+      "output": {
+        "tipo_doc": "cédula_notificación",
+        "autoridad_competente": "Tribunal Electoral (según el caso y la autoridad responsable)",
+        "ruta_sugerida": "Interponer un medio de impugnación",
+        "tramite": "Presentar el medio de impugnación ante la autoridad responsable o el tribunal competente (según aplique).",
+        "modalidad": "Presencial o en línea (depende de la autoridad competente)",
+        "plazo": "Ejemplo precargado: 4 días contados a partir del día siguiente de la notificación (verifica tu caso).",
+        "consecuencias": "Si se presenta fuera de plazo, el acto puede quedar firme (según el caso).",
+        "links_oficiales": [
+          "https://www.te.gob.mx",
+          "https://www.diputados.gob.mx/LeyesBiblio/pdf/LGSMIME.pdf"
+        ],
+        "respuesta": "Modo offline (limitado): este caso usa un ejemplo precargado de reglas. Para no inventar, confirma siempre el fundamento y el cómputo del plazo en tu notificación y en la autoridad competente. Si tienes Internet, consulta el comparador online para una respuesta más contextual."
+      },
+      "sources": [
+        {
+          "label": "TEPJF",
+          "url": "https://www.te.gob.mx"
+        },
+        {
+          "label": "LGSMIME (Cámara de Diputados)",
+          "url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LGSMIME.pdf"
+        }
+      ],
+      "suggested_questions": [
+        "¿Dónde debo presentar el escrito?",
+        "¿Qué datos mínimos debe llevar?",
+        "¿Cómo se cuentan los días del plazo?"
+      ],
+      "rule_pack": {
+        "id": "cedula_notificacion_impugnacion",
+        "doc_type": "cedula_notificacion",
+        "proceso": "medio_impugnacion",
+        "reglas": {
+          "plazo_dias": 4,
+          "inicio_plazo": "dia_siguiente_notificacion",
+          "fundamento": "Articulo 8 LGSMIME",
+          "consecuencia_fuera_plazo": "acto_firme"
+        },
+        "autoridad_default": "Tribunal Electoral",
+        "ruta_default": "Interponer medio de impugnacion",
+        "tramite": {
+          "tipo": "presencial",
+          "descripcion": "Presentar el medio de impugnacion ante la autoridad responsable o ante el tribunal electoral competente"
+        },
+        "links_oficiales": [
+          "https://www.te.gob.mx",
+          "https://www.diputados.gob.mx/LeyesBiblio/pdf/LGSMIME.pdf"
+        ]
+      }
+    },
+    {
+      "id": "ubicar-autoridad",
+      "intentId": "intent.authority",
+      "title": "Cómo ubicar la autoridad competente (guía offline)",
+      "keywords": [
+        "autoridad",
+        "competente",
+        "donde",
+        "tribunal",
+        "ine",
+        "instituto electoral",
+        "a quien acudir"
+      ],
+      "summary": "Guía general para decidir a qué institución acercarte. En offline no valida tu caso específico.",
+      "questions": [
+        {
+          "id": "tema",
+          "prompt": "¿Tu tema se parece más a…?",
+          "options": [
+            {
+              "id": "credencial",
+              "label": "Trámites de credencial/INE (inscripción, reposición, cambio de domicilio)",
+              "keywords": [
+                "ine",
+                "credencial",
+                "domicilio",
+                "reposicion"
+              ]
+            },
+            {
+              "id": "queja",
+              "label": "Quejas/denuncias electorales (propaganda, violencia política, etc.)",
+              "keywords": [
+                "denuncia",
+                "queja",
+                "propaganda",
+                "violencia"
+              ]
+            },
+            {
+              "id": "impugnacion",
+              "label": "Impugnación de un acto o resolución (plazos, escritos, tribunal)",
+              "keywords": [
+                "impugnacion",
+                "tribunal",
+                "resolucion"
+              ]
+            }
+          ]
+        }
+      ],
+      "output": {
+        "tipo_doc": "",
+        "autoridad_competente": "Depende del tema (INE / OPLE / tribunal electoral / fiscalía / autoridad administrativa).",
+        "ruta_sugerida": "Identificar el tema y contactar a la autoridad correspondiente.",
+        "tramite": "Orientación general; en modo offline no se verifica el detalle del caso.",
+        "modalidad": "Presencial o en línea, según la autoridad.",
+        "plazo": "Variable según el procedimiento; si hay plazos, confírmalo con la autoridad.",
+        "consecuencias": "Perder un plazo puede limitar opciones legales; busca orientación pronto.",
+        "links_oficiales": [
+          "https://www.ine.mx",
+          "https://www.te.gob.mx"
+        ],
+        "respuesta": "Guía offline: si tu asunto es sobre credencial para votar o padrón, normalmente inicia en INE. Si es una impugnación de acto/resolución, revisa la vía de medio de impugnación ante la autoridad/tribunal que corresponda. Si es una queja/denuncia, busca el canal oficial del INE/OPLE/autoridad competente. En modo offline no puedo confirmar la autoridad exacta; conecta a Internet para ubicar oficinas y vías formales."
+      },
+      "sources": [
+        {
+          "label": "INE",
+          "url": "https://www.ine.mx"
+        },
+        {
+          "label": "TEPJF",
+          "url": "https://www.te.gob.mx"
+        }
+      ],
+      "suggested_questions": [
+        "¿Qué datos debo llevar para un trámite?",
+        "¿Cómo identifico si es impugnación o queja?",
+        "¿Qué hago si ya tengo una notificación?"
+      ]
+    }
+  ],
+  "rulePacks": [
+    {
+      "id": "cedula_notificacion_impugnacion",
+      "doc_type": "cedula_notificacion",
+      "proceso": "medio_impugnacion",
+      "reglas": {
+        "plazo_dias": 4,
+        "inicio_plazo": "dia_siguiente_notificacion",
+        "fundamento": "Articulo 8 LGSMIME",
+        "consecuencia_fuera_plazo": "acto_firme"
+      },
+      "autoridad_default": "Tribunal Electoral",
+      "ruta_default": "Interponer medio de impugnacion",
+      "tramite": {
+        "tipo": "presencial",
+        "descripcion": "Presentar el medio de impugnacion ante la autoridad responsable o ante el tribunal electoral competente"
+      },
+      "links_oficiales": [
+        "https://www.te.gob.mx",
+        "https://www.diputados.gob.mx/LeyesBiblio/pdf/LGSMIME.pdf"
+      ]
+    }
+  ]
+}

@@ -19,56 +19,74 @@
                         <span aria-hidden="true">🌐</span>
                         <span>Español</span>
                     </div>
-                    <a href="{{ route('onboarding.1') }}" class="mobile-icon-btn" aria-label="Onboarding">
+                    <a href="{{ route('onboarding.1') }}" class="mobile-icon-btn" aria-label="Ayuda e introducción">
                         <span aria-hidden="true">☰</span>
                     </a>
                 </div>
             </header>
+            <p class="ov-p" style="margin: -8px 0 16px; font-size: 13px; color: var(--color-text-muted);">
+                ¿Y qué hago? · Herramienta ciudadana
+            </p>
+
+            <div class="ov-hero-icon" style="margin-bottom: 10px;">
+                <img class="ov-lupin-img" src="{{ asset('images/lupin-mascot.png') }}" width="88" height="88" alt="Lupin, tu orientador">
+            </div>
 
             <section class="mobile-hero">
-                <h1>¿Te llegó un <span style="color: var(--color-primary);">documento oficial</span>?</h1>
-                <p>Te explico qué significa, si debes actuar y cuánto tiempo tienes.</p>
+                <h1>¿Recibiste un <span style="color: var(--color-primary);">documento oficial</span>?</h1>
+                <p>Identifica rápidamente si requiere atención, qué implica y cuánto tiempo tienes para actuar.</p>
             </section>
 
-            <a href="{{ route('orientacion') }}" class="action-card action-card-primary" aria-label="Tengo una situación">
+            <a href="{{ route('orientacion') }}" class="action-card action-card-primary" aria-label="Revisar documento">
+                <div class="action-card-left">
+                    <span class="action-card-icon" aria-hidden="true">📄</span>
+                    <div>
+                        <div class="action-card-title">Revisar documento</div>
+                        <div class="action-card-subtitle">Escanear, subir PDF o describir lo que recibiste</div>
+                    </div>
+                </div>
+                <span class="action-card-chevron" aria-hidden="true">›</span>
+            </a>
+
+            <a href="{{ route('urgencia') }}" class="action-card action-card-danger" aria-label="Orientación urgente">
+                <div class="action-card-left">
+                    <span class="action-card-icon" aria-hidden="true">⚡</span>
+                    <div>
+                        <div class="action-card-title" style="color: var(--color-secondary);">Orientación urgente</div>
+                        <div class="action-card-subtitle">Necesito actuar rápido</div>
+                    </div>
+                </div>
+                <span class="action-card-chevron" aria-hidden="true">›</span>
+            </a>
+
+            <a href="{{ route('orientacion') }}" class="action-card" aria-label="Tengo una situación">
                 <div class="action-card-left">
                     <span class="action-card-icon" aria-hidden="true">💬</span>
                     <div>
                         <div class="action-card-title">Tengo una situación</div>
-                        <div class="action-card-subtitle">Cuéntame qué pasó y te guío</div>
+                        <div class="action-card-subtitle">Cuéntame qué pasó y te guío paso a paso</div>
                     </div>
                 </div>
                 <span class="action-card-chevron" aria-hidden="true">›</span>
             </a>
 
-            <a href="{{ route('urgencia') }}" class="action-card action-card-danger" aria-label="Tengo una emergencia">
-                <div class="action-card-left">
-                    <span class="action-card-icon" aria-hidden="true">⚡</span>
-                    <div>
-                        <div class="action-card-title" style="color: var(--color-secondary);">Tengo una emergencia</div>
-                        <div class="action-card-subtitle">Necesito saber qué hacer ya</div>
-                    </div>
-                </div>
-                <span class="action-card-chevron" aria-hidden="true">›</span>
-            </a>
-
-            <a href="{{ route('traductor') }}" class="action-card" aria-label="Tengo un documento">
-                <div class="action-card-left">
-                    <span class="action-card-icon" aria-hidden="true">📄</span>
-                    <div>
-                        <div class="action-card-title">Tengo un documento</div>
-                        <div class="action-card-subtitle">Pégalo y te lo explico</div>
-                    </div>
-                </div>
-                <span class="action-card-chevron" aria-hidden="true">›</span>
-            </a>
-
-            <a href="{{ route('salida') }}" class="action-card" aria-label="Vista demo">
+            <a href="{{ route('salida') }}" class="action-card" aria-label="Probar demo">
                 <div class="action-card-left">
                     <span class="action-card-icon" aria-hidden="true">🧪</span>
                     <div>
-                        <div class="action-card-title">Vista demo</div>
-                        <div class="action-card-subtitle">Documento procesado listo para ver salida</div>
+                        <div class="action-card-title">¿Quieres ver un ejemplo?</div>
+                        <div class="action-card-subtitle">Probar demo con resultado orientativo</div>
+                    </div>
+                </div>
+                <span class="action-card-chevron" aria-hidden="true">›</span>
+            </a>
+
+            <a href="{{ route('traductor') }}" class="action-card" aria-label="Traducir documento">
+                <div class="action-card-left">
+                    <span class="action-card-icon" aria-hidden="true">📝</span>
+                    <div>
+                        <div class="action-card-title">Pegar texto del documento</div>
+                        <div class="action-card-subtitle">Pégalo y te lo explico en lenguaje claro</div>
                     </div>
                 </div>
                 <span class="action-card-chevron" aria-hidden="true">›</span>
@@ -77,7 +95,7 @@
             <div class="mobile-footer-bar" aria-label="Barra informativa">
                 <div class="mobile-footer-item">
                     <span aria-hidden="true">🔒</span>
-                    <span>Sin dar datos personales</span>
+                    <span>Información cifrada y sin guardar datos sensibles</span>
                 </div>
                 <div class="mobile-footer-item">
                     <span aria-hidden="true">🧾</span>

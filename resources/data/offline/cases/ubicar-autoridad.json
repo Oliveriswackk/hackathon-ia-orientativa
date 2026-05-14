@@ -1,5 +1,6 @@
 {
   "id": "ubicar-autoridad",
+  "intentId": "intent.authority",
   "title": "Cómo ubicar la autoridad competente (guía offline)",
   "keywords": [
     "autoridad",

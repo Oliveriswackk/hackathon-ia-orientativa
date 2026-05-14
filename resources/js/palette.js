@@ -116,11 +116,11 @@ function writeCustomToStorage(vars) {
 }
 
 /**
- * Aplica preset por id (koi, blood_water, …) o personalizada desde localStorage.
+ * Aplica preset por id (orientavox, koi, blood_water, …) o personalizada desde localStorage.
  */
 export function applyStoredPalette() {
     const meta = readMetaFromDom();
-    const id = localStorage.getItem(STORAGE_PALETTE) || 'koi';
+    const id = localStorage.getItem(STORAGE_PALETTE) || 'orientavox';
 
     if (id === 'custom') {
         const custom = readCustomFromStorage();
@@ -136,13 +136,13 @@ export function applyStoredPalette() {
         return { id, vars: preset };
     }
 
-    const fallback = meta.koi?.vars;
+    const fallback = meta.orientavox?.vars || meta.koi?.vars;
     if (fallback) {
         applyCssVariables(fallback);
-        return { id: 'koi', vars: fallback };
+        return { id: meta.orientavox?.vars ? 'orientavox' : 'koi', vars: fallback };
     }
 
-    return { id: 'koi', vars: {} };
+    return { id: 'orientavox', vars: {} };
 }
 
 /**
@@ -197,8 +197,8 @@ function wirePaletteUi() {
     }
 
     const meta = readMetaFromDom();
-    const stored = localStorage.getItem(STORAGE_PALETTE) || 'koi';
-    select.value = meta[stored] ? stored : 'koi';
+    const stored = localStorage.getItem(STORAGE_PALETTE) || 'orientavox';
+    select.value = meta[stored] ? stored : 'orientavox';
 
     const syncCustomPanel = () => {
         const open = select.value === 'custom';
@@ -207,7 +207,7 @@ function wirePaletteUi() {
         }
         if (open) {
             const c = readCustomFromStorage();
-            const base = c || meta.koi?.vars || {};
+            const base = c || meta.orientavox?.vars || meta.koi?.vars || {};
             fillCustomPickersFromVars(base);
         }
     };
@@ -223,7 +223,7 @@ function wirePaletteUi() {
             if (c) {
                 applyCssVariables(c);
             } else {
-                fillCustomPickersFromVars(meta.koi?.vars || {});
+                fillCustomPickersFromVars(meta.orientavox?.vars || meta.koi?.vars || {});
             }
         } else {
             const vars = meta[id]?.vars;
@@ -248,9 +248,9 @@ function wirePaletteUi() {
 
     btnReset?.addEventListener('click', () => {
         localStorage.removeItem(STORAGE_CUSTOM);
-        const koi = meta.koi?.vars;
-        if (koi) {
-            fillCustomPickersFromVars(koi);
+        const defaults = meta.orientavox?.vars || meta.koi?.vars;
+        if (defaults) {
+            fillCustomPickersFromVars(defaults);
         }
     });
 }

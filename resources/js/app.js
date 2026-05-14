@@ -20,4 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
     );
 
     document.querySelectorAll('.fade-up, .fade-in').forEach((el) => observer.observe(el));
+
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
+    }
 });

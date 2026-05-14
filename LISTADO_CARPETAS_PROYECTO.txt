@@ -1,0 +1,157 @@
+================================================================================
+LISTADO DE CARPETAS DEL PROYECTO — hackathon-ia-orientativa-dev
+================================================================================
+Uso: referencia rápida de qué es cada carpeta y para qué sirve.
+No se listan por dentro: node_modules/, vendor/, .git/ (dependencias o control
+de versiones; no editar manualmente salvo casos excepcionales).
+
+--------------------------------------------------------------------------------
+RAÍZ DEL REPOSITORIO
+--------------------------------------------------------------------------------
+Aquí viven Laravel (PHP), configuración Compose, package.json y .env. Punto de
+entrada: artisan, public/index.php vía servidor web.
+
+--------------------------------------------------------------------------------
+.idea/
+--------------------------------------------------------------------------------
+Configuración local del IDE JetBrains. Suele ser personal; en .gitignore está
+ignorada en equipos que no la versionan. No afecta al runtime de la app.
+
+  .idea/inspectionProfiles/  Perfiles de análisis estático del IDE (local).
+
+--------------------------------------------------------------------------------
+app/
+--------------------------------------------------------------------------------
+Código PHP de la aplicación: controladores, modelos, servicios, contratos.
+Aquí va la lógica de negocio y la integración con IA (Groq, Ollama, etc.).
+
+  app/Contracts/        Interfaces que implementan los servicios (p. ej. IA).
+  app/Http/             Capa HTTP; subcarpeta Controllers con rutas web/API.
+  app/Models/           Modelos Eloquent y entidades persistidas.
+  app/Providers/        Registro de servicios Laravel (bindings, boot).
+  app/Services/         Servicios de aplicación; subcarpeta AI/ con proveedores.
+
+--------------------------------------------------------------------------------
+bootstrap/
+--------------------------------------------------------------------------------
+Arranque del framework. cache/ guarda archivos generados por optimize/config.
+
+  bootstrap/cache/      Cachés de rutas, configuración y paquetes (generadas).
+
+--------------------------------------------------------------------------------
+certificates/
+--------------------------------------------------------------------------------
+cacert.pem (bundle de CA Mozilla). Laravel puede usarlo para HTTPS saliente
+(ver AppServiceProvider). No borrar si dependes de ese flujo.
+
+--------------------------------------------------------------------------------
+config/
+--------------------------------------------------------------------------------
+Archivos de configuración PHP (DB, cola, servicios, mail, etc.). Se leen con
+config() y variables .env.
+
+--------------------------------------------------------------------------------
+database/
+--------------------------------------------------------------------------------
+Esquema y datos de prueba. SQLite local suele vivir aquí y no versionarse.
+
+  database/factories/   Factories para datos falsos en tests y seeders.
+  database/migrations/  Cambios de esquema de base de datos versionados.
+  database/seeders/     Datos iniciales al ejecutar db:seed.
+
+--------------------------------------------------------------------------------
+docker/
+--------------------------------------------------------------------------------
+Definición de imágenes Docker propias del proyecto (no el vendor).
+
+  docker/laravel/       Dockerfile y scripts para el servicio laravel-web
+                        (perfil with-php en docker-compose.yml).
+
+--------------------------------------------------------------------------------
+documents/
+--------------------------------------------------------------------------------
+Corpus (PDF, etc.) para indexar en el RAG. Montado en el contenedor rag-api
+solo lectura. En git normalmente solo .gitkeep; los PDF van en local según
+.gitignore.
+
+--------------------------------------------------------------------------------
+public/
+--------------------------------------------------------------------------------
+Document root: index.php, favicon, robots. Lo servido directamente por el web
+server. build/ es salida de Vite (npm run build). mockups/ son referencias PNG.
+
+  public/build/         Assets compilados (JS/CSS hashed).
+  public/build/assets/  Fragmentos generados por Vite.
+  public/mockups/       Capturas o mockups de diseño (referencia visual).
+
+--------------------------------------------------------------------------------
+resources/
+--------------------------------------------------------------------------------
+Frontend fuente y datos embebidos en el bundle.
+
+  resources/css/        Estilos (p. ej. app.css + Tailwind).
+  resources/js/         JavaScript: app, chat, motor offline, accesibilidad.
+  resources/views/      Plantillas Blade (páginas y layouts).
+  resources/views/components/  Partials reutilizables (navbar, chatbot).
+  resources/views/layouts/     Layouts base de las vistas.
+  resources/data/       JSON y esquemas no PHP.
+  resources/data/offline/      Catálogo modo avión (schema + cases/).
+  resources/data/offline/cases/  Un JSON por caso offline.
+  resources/data/rules/        Ejemplo rules.json y output_format.json.
+
+--------------------------------------------------------------------------------
+routes/
+--------------------------------------------------------------------------------
+web.php, api.php, console.php: rutas HTTP y comandos Artisan.
+
+--------------------------------------------------------------------------------
+services/
+--------------------------------------------------------------------------------
+Microservicios fuera del núcleo Laravel.
+
+  services/rag-api/     API FastAPI: RAG, Chroma, LangChain.
+  services/rag-api/app/        Paquete principal del servicio Python.
+  services/rag-api/app/api/    Módulo API.
+  services/rag-api/app/api/routes/  Endpoints FastAPI por dominio.
+  services/rag-api/app/core/   DTOs e interfaces (contratos).
+  services/rag-api/app/core/DTOs/     Objetos de transferencia.
+  services/rag-api/app/core/interfaces/  ABC para Chroma, RAG, LLM, etc.
+  services/rag-api/app/services/ Implementaciones (ChromaImpl, RAGImpl, …).
+  services/rag-api/scripts/    Scripts manuales de desarrollo (no arranque).
+
+--------------------------------------------------------------------------------
+storage/
+--------------------------------------------------------------------------------
+Archivos generados en runtime: logs, caché de vistas, sesiones, uploads.
+
+  storage/app/          Archivos de la app (public/private según uso).
+  storage/app/public/   Enlaces típicos a storage:link para descargas.
+  storage/app/private/  Archivos no expuestos por URL.
+  storage/framework/   Caché de framework, sesiones, vistas compiladas.
+  storage/framework/cache/    Caché de datos y rutas.
+  storage/framework/sessions/ Datos de sesión si driver file.
+  storage/framework/testing/  Archivos temporales de tests.
+  storage/framework/views/     Vistas Blade compiladas.
+  storage/logs/         Registros de Laravel (laravel.log, etc.).
+
+--------------------------------------------------------------------------------
+tests/
+--------------------------------------------------------------------------------
+PHPUnit. Feature = integración HTTP; Unit = pruebas aisladas.
+
+  tests/Feature/        Tests que golpean rutas o stack completo.
+  tests/Unit/           Tests de clases o funciones sueltas.
+
+--------------------------------------------------------------------------------
+node_modules/  (no detallado)
+--------------------------------------------------------------------------------
+Dependencias npm. Instalar con npm install. No editar; regenerable.
+
+--------------------------------------------------------------------------------
+vendor/  (no detallado)
+--------------------------------------------------------------------------------
+Dependencias Composer. Instalar con composer install. No editar; regenerable.
+
+================================================================================
+Más detalle operativo: README.md en la raíz del repositorio.
+================================================================================

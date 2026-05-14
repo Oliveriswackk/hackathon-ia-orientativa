@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#E7EDFE">
+    <link rel="manifest" href="{{ asset('manifest.webmanifest') }}">
     <title>@yield('title', '¿Y qué hago?')</title>
 
     @php
@@ -15,7 +17,7 @@
             try {
                 var metaEl = document.getElementById('ai-palette-meta-data');
                 var meta = metaEl ? JSON.parse(metaEl.textContent) : {};
-                var key = localStorage.getItem('ai_palette') || 'koi';
+                var key = localStorage.getItem('ai_palette') || 'orientavox';
                 var root = document.documentElement.style;
 
                 function applyVars(obj) {
@@ -32,11 +34,13 @@
                     var custom = raw ? JSON.parse(raw) : null;
                     if (custom && typeof custom === 'object') {
                         applyVars(custom);
+                    } else if (meta.orientavox && meta.orientavox.vars) {
+                        applyVars(meta.orientavox.vars);
                     } else if (meta.koi && meta.koi.vars) {
                         applyVars(meta.koi.vars);
                     }
                 } else {
-                    var vars = (meta[key] && meta[key].vars) ? meta[key].vars : (meta.koi ? meta.koi.vars : null);
+                    var vars = (meta[key] && meta[key].vars) ? meta[key].vars : (meta.orientavox ? meta.orientavox.vars : (meta.koi ? meta.koi.vars : null));
                     applyVars(vars);
                 }
             } catch (e) { /* silencioso: Vite aplicará de nuevo */ }
@@ -55,6 +59,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        :root {
+            --ov-lupin-url: url("{{ asset('images/lupin-mascot.png') }}");
+        }
+    </style>
 
     @stack('head')
 </head>

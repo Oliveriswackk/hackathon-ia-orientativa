@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Antes de empezar · OrientaVox')
+@section('title', 'Antes de empezar · ¿Y qué hago?')
 
 @push('head')
     <style>
@@ -26,16 +26,14 @@
                 <li><span class="ov-step-num">4</span> Tú decides y actúas a tiempo</li>
             </ol>
 
-            <div class="ov-disclaimer">No sustituimos una asesoría legal profesional</div>
+            <div class="ov-disclaimer">
+                OrientaVox ofrece orientación inicial y <strong>no sustituye asesoría profesional</strong>.
+            </div>
 
             <div class="ov-consent">
                 <label class="ov-checkbox">
-                    <input type="checkbox" id="ov-terms">
-                    <span>Acepto <u>Términos y condiciones</u></span>
-                </label>
-                <label class="ov-checkbox">
-                    <input type="checkbox" id="ov-privacy">
-                    <span>He leído el <u>Aviso de privacidad</u></span>
+                    <input type="checkbox" id="ov-terms-privacy">
+                    <span>He leído y acepto los <u>términos</u> y el <u>aviso de privacidad</u></span>
                 </label>
             </div>
 
@@ -55,18 +53,15 @@
 @push('scripts')
 <script>
     (function () {
-        const t = document.getElementById('ov-terms');
-        const p = document.getElementById('ov-privacy');
+        const c = document.getElementById('ov-terms-privacy');
         const btn = document.getElementById('ov-consent-continue');
         function sync() {
-            btn.disabled = !(t?.checked && p?.checked);
+            btn.disabled = !c?.checked;
         }
-        t?.addEventListener('change', sync);
-        p?.addEventListener('change', sync);
+        c?.addEventListener('change', sync);
         btn?.addEventListener('click', () => {
             window.location.href = @json(route('onboarding.3'));
         });
     })();
 </script>
 @endpush
-

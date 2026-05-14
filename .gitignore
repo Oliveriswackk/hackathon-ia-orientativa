@@ -1,4 +1,5 @@
 .env
+composer.phar
 vendor/
 node_modules/
 __pycache__/
@@ -26,7 +27,6 @@ venv/
 Homestead.json
 Homestead.yaml
 Thumbs.db
-.DS_Store
 
 # PDFs y documentos para RAG (mantener la carpeta con .gitkeep)
 /documents/*

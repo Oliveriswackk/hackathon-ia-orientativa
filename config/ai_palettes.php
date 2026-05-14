@@ -6,6 +6,18 @@
  */
 return [
     'presets' => [
+        'orientavox' => [
+            'label' => 'ORIENTAVOX',
+            'vars' => [
+                '--color-primary' => '#2F77E2',
+                '--color-secondary' => '#1e56b8',
+                '--color-accent' => '#429FF1',
+                '--color-bg' => '#E7EDFE',
+                '--color-text' => '#0f172a',
+                '--color-surface' => '#ffffff',
+                '--color-on-primary' => '#ffffff',
+            ],
+        ],
         'koi' => [
             'label' => 'KOI FISH',
             'vars' => [

@@ -1,8 +1,16 @@
 /**
- * Comparador dual Groq / Ollama: historiales independientes, chips de seguimiento y estado de conexión.
+ * Comparador dual Groq / Offline: historiales independientes, chips y estado de conexión.
  */
 
-import { OfflineSession, getOfflineCasesCount } from './offline-engine';
+import {
+    OfflineSession,
+    ensureCatalogLoaded,
+    getOfflineCasesCount,
+    decideRoute,
+    matchQuerySync,
+    OFFLINE_CONFIDENT_THRESHOLD,
+    synonymRowsToMap,
+} from './offline/index.js';
 
 const SYSTEM_PROMPT =
     'Eres un orientador electoral para México (público joven). Responde en español, con claridad. ' +
@@ -121,7 +129,6 @@ function appendMessage(container, role, text, chips = [], notice = '') {
 }
 
 /**
- * Enlaza chips para rellenar el campo y reenviar (usa el objetivo de envío actual).
  * @param {HTMLElement | null} wrap
  * @param {HTMLTextAreaElement | null} inputEl
  * @param {HTMLFormElement | null} formEl
@@ -170,12 +177,13 @@ function initMobileTabs(root) {
 /**
  * Inicializa el comparador si existe el contenedor en la página.
  */
-export function initDualChat() {
+export async function initDualChat() {
     const root = document.getElementById('dual-ia-root');
     if (!root) {
         return;
     }
 
+    const catalog = await ensureCatalogLoaded();
     const apiBase = root.dataset.apiBase || '/api';
     const form = document.getElementById('dual-ia-form');
     const input = document.getElementById('dual-ia-input');
@@ -185,12 +193,12 @@ export function initDualChat() {
     const statusGroq = document.getElementById('dual-status-groq');
     const statusOllama = document.getElementById('dual-status-ollama');
 
-    const offlineSession = new OfflineSession();
+    const offlineSession = new OfflineSession(catalog);
+    const preferOfflineGroq = root.dataset.offlineFirstGroq === 'true';
 
     initMobileTabs(root);
 
     async function refreshStatus() {
-        // Si no hay Internet, no consultamos backend: Groq no está, offline engine sí.
         if (typeof navigator !== 'undefined' && navigator.onLine === false) {
             renderConnectionStatus(statusGroq, false, 'En línea', 'Sin conexión');
             renderConnectionStatus(statusOllama, true, 'Disponible', 'No disponible');
@@ -203,7 +211,6 @@ export function initDualChat() {
             return;
         }
         renderConnectionStatus(statusGroq, !!data.llama_available, 'En línea', 'Sin conexión');
-        // El motor offline (JSON) está embebido en el frontend: siempre disponible.
         renderConnectionStatus(statusOllama, true, 'Disponible', 'No disponible');
     }
 
@@ -213,7 +220,6 @@ export function initDualChat() {
     function applyOfflineUx() {
         const isOffline = typeof navigator !== 'undefined' && navigator.onLine === false;
 
-        // Si estamos offline: deshabilitar targets que requieran backend y renombrar “Ollama” a “Offline”.
         const radios = form?.querySelectorAll('input[name="dual-send-target"]') || [];
         radios.forEach((r) => {
             if (!(r instanceof HTMLInputElement)) return;
@@ -252,7 +258,6 @@ export function initDualChat() {
     async function runColumn(provider, question) {
         const col = provider === 'groq' ? colGroq : colOllama;
 
-        // Offline real: usamos el motor local y no llamamos backend.
         if (provider === 'ollama' && typeof navigator !== 'undefined' && navigator.onLine === false) {
             const result = offlineSession.handleUserMessage(question);
             if (result.type === 'answer') {
@@ -265,6 +270,35 @@ export function initDualChat() {
                 appendMessage(col, 'error', result.text, []);
             }
             return;
+        }
+
+        if (
+            provider === 'groq' &&
+            typeof navigator !== 'undefined' &&
+            navigator.onLine &&
+            preferOfflineGroq
+        ) {
+            const synMap = synonymRowsToMap(catalog.synonyms);
+            const { entry, score } = matchQuerySync(question, catalog.entries, catalog.intents, synMap);
+            const noWizard = !entry?.questions?.length;
+            if (
+                entry &&
+                noWizard &&
+                score >= OFFLINE_CONFIDENT_THRESHOLD &&
+                decideRoute({ online: true, score, preferOfflineWhenConfident: true }) === 'offline'
+            ) {
+                const snap = new OfflineSession(catalog);
+                const result = snap.buildFinalAnswerForEntry(entry);
+                const wrap = appendMessage(
+                    col,
+                    'assistant',
+                    result.text,
+                    result.chips,
+                    'Catálogo local (alta coincidencia)',
+                );
+                wireChips(wrap, input, form);
+                return;
+            }
         }
 
         const { ok, json } = await postAsk(apiBase, question, provider);
@@ -317,5 +351,5 @@ export function initDualChat() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    initDualChat();
+    initDualChat().catch(() => {});
 });

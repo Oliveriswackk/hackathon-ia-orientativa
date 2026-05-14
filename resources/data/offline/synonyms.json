@@ -1,0 +1,7 @@
+{
+  "synonyms": [
+    { "from": "tee", "to": "tribunal electoral" },
+    { "from": "tepjf", "to": "tribunal electoral" },
+    { "from": "ine", "to": "instituto nacional electoral" }
+  ]
+}

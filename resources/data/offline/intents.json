@@ -1,0 +1,39 @@
+{
+  "intents": [
+    {
+      "id": "intent.glossary",
+      "label": "Glosario",
+      "priority": 1,
+      "keywords": ["glosario", "terminos", "que significa", "definicion", "definición"],
+      "aliases": ["significado", "diccionario"]
+    },
+    {
+      "id": "intent.authority",
+      "label": "Autoridad",
+      "priority": 2,
+      "keywords": ["autoridad", "donde presento", "tribunal", "sala", "competente"],
+      "aliases": ["donde voy", "a donde"]
+    },
+    {
+      "id": "intent.deadline",
+      "label": "Plazos",
+      "priority": 3,
+      "keywords": ["plazo", "dias", "días", "vencio", "venció", "caducidad"],
+      "aliases": ["tiempo limite", "tiempo límite"]
+    },
+    {
+      "id": "intent.notification",
+      "label": "Notificación",
+      "priority": 4,
+      "keywords": ["notificacion", "notificación", "cedula", "cédula", "buzon", "buzón"],
+      "aliases": ["me notificaron", "recibi documento"]
+    },
+    {
+      "id": "intent.online_help",
+      "label": "Consulta en línea",
+      "priority": 0,
+      "keywords": ["en linea", "en línea", "internet", "portal", "consultar en linea"],
+      "aliases": []
+    }
+  ]
+}

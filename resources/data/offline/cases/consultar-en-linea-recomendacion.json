@@ -1,5 +1,6 @@
 {
   "id": "consultar-en-linea-recomendacion",
+  "intentId": "intent.online_help",
   "title": "Cuando conviene conectarte (limitación offline)",
   "keywords": [
     "no se",

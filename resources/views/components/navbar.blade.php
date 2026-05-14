@@ -29,18 +29,18 @@
     </div>
     <div id="ai-palette-custom" class="ai-palette-custom ai-palette-custom--below" data-open="false">
         <p class="ai-palette-help u-text-muted">
-            Ajusta los colores y pulsa «Aplicar». «Restablecer» borra la paleta personalizada guardada y devuelve los valores del formulario a KOI FISH.
+            Ajusta los colores y pulsa «Aplicar». «Restablecer» borra la paleta personalizada guardada y devuelve los valores del formulario al preset OrientaVox.
         </p>
         <div class="ai-palette-custom-row">
-            <label>Primario <input type="color" id="ai-custom-primary" value="#5D64EE" aria-label="Color primario personalizado"></label>
-            <label>Secundario <input type="color" id="ai-custom-secondary" value="#9D5F5E" aria-label="Color secundario personalizado"></label>
-            <label>Acento <input type="color" id="ai-custom-accent" value="#F79A75" aria-label="Color de acento personalizado"></label>
-            <label>Fondo <input type="color" id="ai-custom-bg" value="#FEF1D8" aria-label="Color de fondo personalizado"></label>
-            <label>Texto <input type="color" id="ai-custom-text" value="#2D2D2D" aria-label="Color de texto personalizado"></label>
+            <label>Primario <input type="color" id="ai-custom-primary" value="#2F77E2" aria-label="Color primario personalizado"></label>
+            <label>Secundario <input type="color" id="ai-custom-secondary" value="#1E56B8" aria-label="Color secundario personalizado"></label>
+            <label>Acento <input type="color" id="ai-custom-accent" value="#429FF1" aria-label="Color de acento personalizado"></label>
+            <label>Fondo <input type="color" id="ai-custom-bg" value="#E7EDFE" aria-label="Color de fondo personalizado"></label>
+            <label>Texto <input type="color" id="ai-custom-text" value="#0F172A" aria-label="Color de texto personalizado"></label>
         </div>
         <div class="ai-palette-custom-actions">
             <button type="button" class="btn btn-primary" id="ai-palette-custom-apply" aria-label="Aplicar paleta personalizada">Aplicar</button>
-            <button type="button" class="btn btn-secondary" id="ai-palette-custom-reset" aria-label="Restablecer colores del formulario a valores KOI FISH">Restablecer</button>
+            <button type="button" class="btn btn-secondary" id="ai-palette-custom-reset" aria-label="Restablecer colores del formulario a valores OrientaVox">Restablecer</button>
         </div>
     </div>
 </nav>

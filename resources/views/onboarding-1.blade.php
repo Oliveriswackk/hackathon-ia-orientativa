@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Onboarding · OrientaVox')
+@section('title', 'Bienvenida · ¿Y qué hago?')
 
 @push('head')
     <style>
@@ -16,11 +16,12 @@
                 <span aria-hidden="true">‹</span>
             </a>
 
-            <div class="ov-hero-icon" aria-hidden="true">
-                <div class="ov-lupin"></div>
+            <div class="ov-hero-icon">
+                <img class="ov-lupin-img" src="{{ asset('images/lupin-mascot.png') }}" width="88" height="88" alt="Lupin, tu orientador">
             </div>
 
             <h1 class="ov-h1">OrientaVox</h1>
+            <p class="ov-p" style="margin-top: -6px; font-size: 14px; font-weight: 600; color: var(--color-text);">¿Y qué hago? · Herramienta ciudadana</p>
             <p class="ov-p">Entiende. Actúa. Protege tus derechos</p>
 
             <div class="ov-checklist" role="list" aria-label="Beneficios">

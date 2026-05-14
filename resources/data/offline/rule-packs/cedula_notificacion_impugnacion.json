@@ -1,0 +1,21 @@
+{
+  "id": "cedula_notificacion_impugnacion",
+  "doc_type": "cedula_notificacion",
+  "proceso": "medio_impugnacion",
+  "reglas": {
+    "plazo_dias": 4,
+    "inicio_plazo": "dia_siguiente_notificacion",
+    "fundamento": "Articulo 8 LGSMIME",
+    "consecuencia_fuera_plazo": "acto_firme"
+  },
+  "autoridad_default": "Tribunal Electoral",
+  "ruta_default": "Interponer medio de impugnacion",
+  "tramite": {
+    "tipo": "presencial",
+    "descripcion": "Presentar el medio de impugnacion ante la autoridad responsable o ante el tribunal electoral competente"
+  },
+  "links_oficiales": [
+    "https://www.te.gob.mx",
+    "https://www.diputados.gob.mx/LeyesBiblio/pdf/LGSMIME.pdf"
+  ]
+}

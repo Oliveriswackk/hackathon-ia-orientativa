@@ -1,5 +1,9 @@
 {
   "id": "impugnacion-cedula-notificacion",
+  "intentId": "intent.notification",
+  "doc_type": "cedula_notificacion",
+  "proceso": "medio_impugnacion",
+  "rule_pack_id": "cedula_notificacion_impugnacion",
   "title": "Plazo para impugnar tras una cédula de notificación",
   "keywords": [
     "cedula",
